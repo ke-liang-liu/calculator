@@ -1,33 +1,92 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Button } from '@material-ui/core/';
-import './App.css';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Typography, Button } from '@material-ui/core/';
+
+const useStyles = makeStyles(theme => ({
+  bulletboard: { gridArea: 'bulletboard', textAlign: 'right', backgroundColor: '#e0e0e0' },
+  zero: { gridArea: 'zero' },
+  one: { gridArea: 'one' },
+  two: { gridArea: 'two' },
+  three: { gridArea: 'three' },
+  four: { gridArea: 'four' },
+  five: { gridArea: 'five' },
+  six: { gridArea: 'six' },
+  seven: { gridArea: 'seven' },
+  eight: { gridArea: 'eight' },
+  nine: { gridArea: 'nine' },
+  add: { gridArea: 'add' },
+  subtract: { gridArea: 'subtract' },
+  multiply: { gridArea: 'multiply' },
+  divide: { gridArea: 'divide' },
+  clear: { gridArea: 'clear' },
+  decimal: { gridArea: 'decimal' },
+  equals: { gridArea: 'equals' },
+
+  gridContainer: {
+    display: 'grid',
+    gridTemplateAreas: `
+      'bulletboard bulletboard bulletboard bulletboard'
+      'clear clear equals equals'
+      'seven eight nine divide'
+      'four five six multiply'
+      'one two three subtract'
+      'zero zero decimal add'`,
+    gridGap: theme.spacing(0.5),
+    margin: 'auto',
+    width: 268,
+  },
+  item: {
+    color: theme.palette.text.secondary,
+    whiteSpace: 'nowrap',
+  },
+  divider: {
+    margin: theme.spacing(2, 0),
+  },
+}));
+
+function Calculator() {
+  const classes = useStyles();
+  const [currVal, setCurrVal] = useState(String.fromCharCode(48));
 
 
-
-
-
-
-function App() {
-  // const [display, setDisplay] = useState('');
+  const handleClick = (value) => {
+    setCurrVal(value);
+  }
 
   return (
-    <Grid container>
-      <Grid item id="display" xs={12}>
-        <Typography variant="h3" align='center' gutterBottom>
-          Hello World
-        </Typography>
-      </Grid>
-      {buttons.map(button => (
-        <Grid item>
-          <MyButton id={button.id} value={button.value} />
-        </Grid>
-      )
-      )}
-    </Grid>
+    <Container maxWidth='sm'>
+      <div className={classes.gridContainer}>
+
+        <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
+          <Typography variant="h4" align='right' value={currVal}>
+            {currVal}
+          </Typography>
+        </div>
+        {buttons.map(button => (
+          <div className={[classes.item, classes[button.id]].join(' ')} key={button.id}>
+            <MyButton id={button.id} value={button.value} handleClick={handleClick} />
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 }
 
-export default App;
+export default Calculator;
+
+const MyButton = (props) => {
+  return (
+    <Button
+      style={{ height: 'inherit' }}
+      variant='contained'
+      id={props.id}
+      value={props.value}
+      onClick={() => { props.handleClick(props.value) }}
+      fullWidth>
+      {props.value}
+    </Button>
+  );
+}
 
 const buttons = [
   { id: "zero", value: "0" },
@@ -47,16 +106,3 @@ const buttons = [
   { id: "clear", value: "AC" },
   { id: "decimal", value: "." },
   { id: "equals", value: "=" }]
-
-const MyButton = (props) => {
-  return (
-    <Button
-      // style={{ height: 90 }}
-      variant='contained'
-      id={props.id}
-      value={props.value}
-      fullWidth>
-      {props.value}
-    </Button>
-  );
-}
