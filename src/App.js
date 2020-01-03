@@ -46,11 +46,78 @@ const useStyles = makeStyles(theme => ({
 
 function Calculator() {
   const classes = useStyles();
-  const [currVal, setCurrVal] = useState(String.fromCharCode(48));
-
+  const [currVal, setCurrVal] = useState('0');
+  const [prevVal, setPrevVal] = useState('0');
+  const [currOperator, setCurrOperator] = useState('+');
+  const [evaluated, setEvaluated] = useState(false);
+  const [lastButton, setLastButton] = useState('0');
 
   const handleClick = (value) => {
-    setCurrVal(value);
+    switch (value) {
+      case 'AC':
+        setCurrVal('0');
+        setPrevVal('0');
+        setEvaluated(false);
+        setCurrOperator('+');
+        break;
+      case '0':
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9': {
+        setEvaluated(false);
+        if (
+          lastButton === 'AC'
+          || (lastButton === '0' && currVal === '0')
+          || (lastButton === '=')
+          || ['+', '-', '*', '/'].includes(lastButton)
+        ) {
+          setCurrVal(value);
+        } else {
+          setCurrVal(currVal + value);
+        }
+        break;
+      }
+      case '.': {
+        if (evaluated) {
+          setCurrVal('0.');
+          value = '0.';
+        } else if (!currVal.includes('.')) {
+          setCurrVal(currVal + '.');
+        }
+        break;
+      }
+      case '-':
+      case '+':
+      case '*':
+      case '/':
+        if (/\d/.test(lastButton)) {
+          const expression = prevVal + currOperator + currVal;
+          const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
+          setPrevVal(answer.toString());
+          setCurrVal(answer.toString());
+        } else if (['+', '-', '*', '/'].includes(lastButton)) {
+
+        }
+        setCurrOperator(value);
+        break;
+      case '=': {
+        const expression = prevVal + currOperator + currVal;
+        const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
+        setCurrVal(answer.toString());
+        setPrevVal(answer.toString());
+        setEvaluated(true);
+        setCurrOperator('+');
+        break;
+      }
+      default:
+    }
+    setLastButton(value);
   }
 
   return (
