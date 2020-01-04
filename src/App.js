@@ -21,16 +21,18 @@ const useStyles = makeStyles(theme => ({
   clear: { gridArea: 'clear' },
   decimal: { gridArea: 'decimal' },
   equals: { gridArea: 'equals' },
+  developer: { gridArea: 'developer', margin: 'auto' },
 
   gridContainer: {
     display: 'grid',
     gridTemplateAreas: `
       'bulletboard bulletboard bulletboard bulletboard'
       'clear clear equals equals'
-      'seven eight nine divide'
-      'four five six multiply'
-      'one two three subtract'
-      'zero zero decimal add'`,
+      'seven eight nine add'
+      'four five six subtract'
+      'one two three multiply'
+      'zero zero decimal divide'
+      'developer developer developer developer'`,
     gridGap: theme.spacing(0.5),
     margin: 'auto',
     width: 268,
@@ -100,7 +102,6 @@ function Calculator() {
       case '/':
         if (/\d/.test(lastButton)) {
           const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
-          console.log(expression);
           // eslint-disable-next-line
           const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
           setPrevVal(answer.toString());
@@ -116,6 +117,9 @@ function Calculator() {
         }
         break;
       case '=': {
+        if (lastButton === '=') {
+          return;
+        }
         const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
         // eslint-disable-next-line
         const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
@@ -144,6 +148,11 @@ function Calculator() {
             <MyButton id={button.id} value={button.value} handleClick={handleClick} />
           </div>
         ))}
+        <div className={[classes.item, classes.developer].join(' ')}>
+          <Typography variant="body2" align='center' value={currVal}>
+            Designed and Coded By Keliang Liu
+          </Typography>
+        </div>
       </div>
     </Container>
   );
