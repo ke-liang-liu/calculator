@@ -51,6 +51,7 @@ function Calculator() {
   const [currOperator, setCurrOperator] = useState('+');
   const [evaluated, setEvaluated] = useState(false);
   const [lastButton, setLastButton] = useState('0');
+  const [currSign, setCurrSign] = useState('+');
 
   const handleClick = (value) => {
     switch (value) {
@@ -59,6 +60,7 @@ function Calculator() {
         setPrevVal('0');
         setEvaluated(false);
         setCurrOperator('+');
+        setCurrSign('+');
         break;
       case '0':
       case '1':
@@ -97,22 +99,31 @@ function Calculator() {
       case '*':
       case '/':
         if (/\d/.test(lastButton)) {
-          const expression = prevVal + currOperator + currVal;
+          const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
+          console.log(expression);
+          // eslint-disable-next-line
           const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
           setPrevVal(answer.toString());
           setCurrVal(answer.toString());
-        } else if (['+', '-', '*', '/'].includes(lastButton)) {
-
+          setCurrOperator(value);
+        } else if (value === '-' && ['+', '-', '*', '/'].includes(lastButton)) {
+          setCurrSign('-');
+        } else if (['+', '*', '/'].includes(value) && lastButton === '-') {
+          setCurrSign('+');
+          setCurrOperator(value);
+        } else {
+          setCurrOperator(value);
         }
-        setCurrOperator(value);
         break;
       case '=': {
-        const expression = prevVal + currOperator + currVal;
+        const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
+        // eslint-disable-next-line
         const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
         setCurrVal(answer.toString());
         setPrevVal(answer.toString());
         setEvaluated(true);
         setCurrOperator('+');
+        setCurrSign('+');
         break;
       }
       default:
@@ -123,7 +134,6 @@ function Calculator() {
   return (
     <Container maxWidth='sm'>
       <div className={classes.gridContainer}>
-
         <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
           <Typography variant="h4" align='right' value={currVal}>
             {currVal}
