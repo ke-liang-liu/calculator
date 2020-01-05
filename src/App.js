@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Button } from '@material-ui/core/';
+import { Typography, Button } from '@material-ui/core/';
 
 const useStyles = makeStyles(theme => ({
   bulletboard: { gridArea: 'bulletboard', textAlign: 'right', backgroundColor: '#e0e0e0' },
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
       'developer developer developer developer'`,
     gridGap: theme.spacing(0.5),
     margin: 'auto',
-    width: 268,
+    width: 'fit-content',
   },
   item: {
     color: theme.palette.text.secondary,
@@ -136,25 +136,23 @@ function Calculator() {
   }
 
   return (
-    <Container maxWidth='sm'>
-      <div className={classes.gridContainer}>
-        <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
-          <Typography variant="h4" align='right' value={currVal}>
-            {currVal}
-          </Typography>
-        </div>
-        {buttons.map(button => (
-          <div className={[classes.item, classes[button.id]].join(' ')} key={button.id}>
-            <MyButton id={button.id} value={button.value} handleClick={handleClick} />
-          </div>
-        ))}
-        <div className={[classes.item, classes.developer].join(' ')}>
-          <Typography variant="body2" align='center' value={currVal}>
-            Designed and Coded By Keliang Liu
-          </Typography>
-        </div>
+    <div className={classes.gridContainer}>
+      <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
+        <Typography variant="h4" align='right' value={currVal}>
+          {currVal}
+        </Typography>
       </div>
-    </Container>
+      {buttons.map(button => (
+        <div className={[classes.item, classes[button.id]].join(' ')} key={button.id}>
+          <MyButton id={button.id} value={button.value} handleClick={handleClick} />
+        </div>
+      ))}
+      <div className={[classes.item, classes.developer].join(' ')}>
+        <Typography variant="body2" align='center' value={currVal}>
+          Designed and Coded By Keliang Liu
+          </Typography>
+      </div>
+    </div>
   );
 }
 
