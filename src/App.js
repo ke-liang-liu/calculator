@@ -56,6 +56,14 @@ function Calculator() {
   const [currSign, setCurrSign] = useState('+');
 
   const handleClick = (value) => {
+    const evaluateResult = () => {
+      const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
+      // eslint-disable-next-line
+      const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
+      setCurrVal(answer.toString());
+      setPrevVal(answer.toString());
+    }
+
     switch (value) {
       case 'AC':
         setCurrVal('0');
@@ -101,11 +109,7 @@ function Calculator() {
       case '*':
       case '/':
         if (/\d/.test(lastButton)) {
-          const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
-          // eslint-disable-next-line
-          const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
-          setPrevVal(answer.toString());
-          setCurrVal(answer.toString());
+          evaluateResult();
           setCurrOperator(value);
         } else if (value === '-' && ['+', '-', '*', '/'].includes(lastButton)) {
           setCurrSign('-');
@@ -120,13 +124,9 @@ function Calculator() {
         if (lastButton === '=') {
           return;
         }
-        const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
-        // eslint-disable-next-line
-        const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
-        setCurrVal(answer.toString());
-        setPrevVal(answer.toString());
-        setEvaluated(true);
+        evaluateResult();
         setCurrOperator('+');
+        setEvaluated(true);
         setCurrSign('+');
         break;
       }
