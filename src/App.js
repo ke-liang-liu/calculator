@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core/';
 
@@ -48,11 +48,21 @@ const useStyles = makeStyles(theme => ({
 
 function Calculator() {
   const classes = useStyles();
-  const [currVal, setCurrVal] = useState('0');
+  const [lastButton, setLastButton] = useState('0');
+  const [currVal, setCurrVal] = useState(() => {
+    const localData = localStorage.getItem('calculatorCurrValue');
+    if (isNaN(localData) || localData === 'Infinity') {
+      setLastButton('0');
+      return '0';
+    }
+    return localData;
+  });
+  useEffect(() => {
+    localStorage.setItem('calculatorCurrValue', currVal);
+  }, [currVal]);
   const [prevVal, setPrevVal] = useState('0');
   const [currOperator, setCurrOperator] = useState('+');
   const [evaluated, setEvaluated] = useState(false);
-  const [lastButton, setLastButton] = useState('0');
   const [currSign, setCurrSign] = useState('+');
 
   const handleClick = (value) => {
