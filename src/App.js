@@ -58,8 +58,9 @@ function Calculator() {
   const handleClick = (value) => {
     const evaluateResult = () => {
       const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
+      const tens = 1000000000000;
       // eslint-disable-next-line
-      const answer = Math.round(10000000000000 * eval(expression)) / 10000000000000;
+      const answer = Math.round(tens * eval(expression)) / tens;
       setCurrVal(answer.toString());
       setPrevVal(answer.toString());
     }
@@ -83,6 +84,7 @@ function Calculator() {
       case '8':
       case '9': {
         setEvaluated(false);
+        if (currVal.length === 16 && /\d/.test(lastButton)) { return; }
         if (
           lastButton === 'AC'
           || (lastButton === '0' && currVal === '0')
