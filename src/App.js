@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   bulletboard: {
     gridArea: 'bulletboard',
     textAlign: 'right',
-    backgroundColor: theme.palette.divider,
+    backgroundColor: theme.palette.grey[300],
   },
   gridContainer: {
     display: 'grid',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
       'developer developer developer developer'`,
     gridGap: theme.spacing(1),
     margin: 'auto',
-    marginTop: theme.spacing(1),
+    paddingTop: theme.spacing(1),
     width: 'fit-content',
   },
   item: {
@@ -65,6 +65,7 @@ function Calculator() {
   const [currOperator, setCurrOperator] = useState('+');
   const [evaluated, setEvaluated] = useState(false);
   const [currSign, setCurrSign] = useState('+');
+  const [bgColor, setBgColor] = useState('white');
 
   const handleClick = (value) => {
     const evaluateResult = () => {
@@ -149,21 +150,34 @@ function Calculator() {
   }
 
   return (
-    <div className={classes.gridContainer}>
-      <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
-        <Typography variant="h4" align='right' value={currVal}>
-          {currVal}
-        </Typography>
-      </div>
-      {buttons.map(button => (
-        <div className={[classes.item, classes[button.id]].join(' ')} key={button.id}>
-          <MyButton id={button.id} value={button.value} handleClick={handleClick} />
-        </div>
-      ))}
-      <div className={[classes.item, classes.developer].join(' ')}>
-        <Typography variant="body2" align='center' value={currVal}>
-          Designed and Coded By Keliang Liu
+    <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
+      <div className={classes.gridContainer}>
+        <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
+          <Typography variant="h4" align='right' value={currVal}>
+            {currVal}
           </Typography>
+        </div>
+        {buttons.map(button => (
+          <div className={[classes.item, classes[button.id]].join(' ')} key={button.id}>
+            <MyButton id={button.id} value={button.value} handleClick={handleClick} />
+          </div>
+        ))}
+        <div className={[classes.item, classes.developer].join(' ')}>
+          <Typography
+            variant="body2"
+            align='center'
+            value={currVal}
+            onClick={() => {
+              if (bgColor === 'white') {
+                setBgColor('black')
+              } else {
+                setBgColor('white')
+              }
+            }}
+          >
+            Designed and Coded By Keliang Liu
+          </Typography>
+        </div>
       </div>
     </div>
   );
@@ -174,7 +188,7 @@ export default Calculator;
 const MyButton = (props) => {
   return (
     <Button
-      style={{ height: 'inherit' }}
+      size='large'
       variant='contained'
       id={props.id}
       value={props.value}
