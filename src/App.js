@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
       'developer developer developer developer'`,
     gridGap: theme.spacing(1),
     margin: 'auto',
+    marginTop: theme.spacing(1),
     width: 'fit-content',
   },
   item: {
