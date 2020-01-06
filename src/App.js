@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Typography, Button } from '@material-ui/core/';
 
 const useStyles = makeStyles(theme => ({
-  bulletboard: { gridArea: 'bulletboard', textAlign: 'right', backgroundColor: '#e0e0e0' },
   zero: { gridArea: 'zero' },
   one: { gridArea: 'one' },
   two: { gridArea: 'two' },
@@ -22,7 +21,11 @@ const useStyles = makeStyles(theme => ({
   decimal: { gridArea: 'decimal' },
   equals: { gridArea: 'equals' },
   developer: { gridArea: 'developer', margin: 'auto' },
-
+  bulletboard: {
+    gridArea: 'bulletboard',
+    textAlign: 'right',
+    backgroundColor: theme.palette.divider,
+  },
   gridContainer: {
     display: 'grid',
     gridTemplateAreas: `
@@ -33,16 +36,13 @@ const useStyles = makeStyles(theme => ({
       'one two three multiply'
       'zero zero decimal divide'
       'developer developer developer developer'`,
-    gridGap: theme.spacing(0.5),
+    gridGap: theme.spacing(1),
     margin: 'auto',
     width: 'fit-content',
   },
   item: {
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
-  },
-  divider: {
-    margin: theme.spacing(2, 0),
   },
 }));
 
