@@ -6,8 +6,9 @@ import useStyles from './components/styles';
 
 function Calculator() {
   const classes = useStyles();
-  const [evaluated, setEvaluated] = useState(false);
   const [lastButton, setLastButton] = useState('0');
+  const [evaluated, setEvaluated] = useState(false);
+  const [prevVal, setPrevVal] = useState('initZero');
   const [currVal, setCurrVal] = useState(() => {
     const localData = localStorage.getItem('calculatorCurrVal');
     if (localData === null || isNaN(localData) || localData === 'Infinity') {
@@ -33,18 +34,19 @@ function Calculator() {
   useEffect(() => {
     localStorage.setItem('calculatorEquation', equation);
   }, [equation]);
-  const [prevVal, setPrevVal] = useState('0');
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
 
   const handleClick = (value) => {
     const evaluateResult = () => {
+      if (prevVal === 'initZero') {
+        setPrevVal(currVal);
+        return;
+      }
       const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
       let equation;
-      if (currSign === '+' && prevVal === '0') {
-        equation = `${currOperator} ${currVal}`;
-      } else if (currSign === '+' && prevVal !== '0') {
+      if (currSign === '+') {
         equation = `${prevVal} ${currOperator} ${currVal}`;
       } else {
         equation = `${prevVal} ${currOperator} ${currSign}${currVal}`;
@@ -57,8 +59,8 @@ function Calculator() {
       setEquation(equation + ' = ' + answer.toString());
     }
     const doAC = () => {
+      setPrevVal('initZero');
       setCurrVal('0');
-      setPrevVal('0');
       setEvaluated(false);
       setCurrOperator('+');
       setCurrSign('+');
@@ -123,6 +125,7 @@ function Calculator() {
         if (lastButton === '=') {
           return;
         }
+        setPrevVal('initZero');
         evaluateResult();
         setCurrOperator('+');
         setEvaluated(true);
