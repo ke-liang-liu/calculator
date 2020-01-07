@@ -6,6 +6,7 @@ import useStyles from './components/styles';
 
 function Calculator() {
   const classes = useStyles();
+  const [evaluated, setEvaluated] = useState(false);
   const [lastButton, setLastButton] = useState('0');
   const [currVal, setCurrVal] = useState(() => {
     const localData = localStorage.getItem('calculatorCurrVal');
@@ -13,6 +14,8 @@ function Calculator() {
       setLastButton('0');
       return '0';
     }
+    setEvaluated(true);
+    setLastButton('=');
     return localData;
   });
 
@@ -32,7 +35,6 @@ function Calculator() {
   }, [equation]);
   const [prevVal, setPrevVal] = useState('0');
   const [currOperator, setCurrOperator] = useState('+');
-  const [evaluated, setEvaluated] = useState(false);
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
 
