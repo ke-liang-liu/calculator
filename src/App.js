@@ -54,13 +54,16 @@ function Calculator() {
       setPrevVal(answer.toString());
       setEquation(equation + ' = ' + answer.toString());
     }
+    const doAC = () => {
+      setCurrVal('0');
+      setPrevVal('0');
+      setEvaluated(false);
+      setCurrOperator('+');
+      setCurrSign('+');
+    }
     switch (value) {
       case 'AC':
-        setCurrVal('0');  //zero is 48, space is 32 or 160
-        setPrevVal('0');
-        setEvaluated(false);
-        setCurrOperator('+');
-        setCurrSign('+');
+        doAC();
         setEquation('0');
         break;
       case '0':
@@ -78,9 +81,11 @@ function Calculator() {
         if (
           lastButton === 'AC'
           || (lastButton === '0' && currVal === '0')
-          || (lastButton === '=')
           || ['+', '-', '*', '/'].includes(lastButton)
         ) {
+          setCurrVal(value);
+        } else if (lastButton === '=') {
+          doAC();
           setCurrVal(value);
         } else {
           setCurrVal(currVal + value);
