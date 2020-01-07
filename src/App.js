@@ -44,7 +44,7 @@ function Calculator() {
       } else if (currSign === '+' && prevVal !== '0') {
         equation = `${prevVal} ${currOperator} ${currVal}`;
       } else {
-        equation = expression;
+        equation = `${prevVal} ${currOperator} ${currSign}${currVal}`;
       }
       const tens = 1000000000000;
       // eslint-disable-next-line
