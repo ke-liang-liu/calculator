@@ -6,11 +6,10 @@ import useStyles from './components/styles';
 
 function Calculator() {
   const classes = useStyles();
-
   const [lastButton, setLastButton] = useState('0');
   const [currVal, setCurrVal] = useState(() => {
     const localData = localStorage.getItem('calculatorCurrVal');
-    if (isNaN(localData) || localData === 'Infinity' || localData === null) {
+    if (localData === null || isNaN(localData) || localData === 'Infinity') {
       setLastButton('0');
       return '0';
     }
@@ -19,6 +18,9 @@ function Calculator() {
 
   const [equation, setEquation] = useState(() => {
     const localData = localStorage.getItem('calculatorEquation');
+    if (localData === null || localData === 'null' || localData === 'Infinity') {
+      return '0';
+    }
     return localData;
   });
 
@@ -35,7 +37,6 @@ function Calculator() {
   const [bgColor, setBgColor] = useState('white');
 
   const handleClick = (value) => {
-
     const evaluateResult = () => {
       const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
       let equation;
@@ -53,7 +54,6 @@ function Calculator() {
       setPrevVal(answer.toString());
       setEquation(equation + ' = ' + answer.toString());
     }
-
     switch (value) {
       case 'AC':
         setCurrVal('0');  //zero is 48, space is 32 or 160
