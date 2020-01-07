@@ -46,7 +46,7 @@ function Calculator() {
       } else {
         equation = `${prevVal} ${currOperator} ${currSign}${currVal}`;
       }
-      const tens = 1000000000000;
+      const tens = 100000000000;
       // eslint-disable-next-line
       const answer = Math.round(tens * eval(expression)) / tens;
       setCurrVal(answer.toString());
@@ -131,11 +131,11 @@ function Calculator() {
     <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
       <div className={classes.gridContainer}>
         <div className={[classes.item, classes.bulletboard].join(' ')}>
-          <Typography variant='subtitle1'>
+          <Typography className={classes.equation} variant='subtitle1'>
             {equation}
           </Typography>
           <Divider className={classes.divider} />
-          <Typography id="display" variant="h4" align='right' value={currVal}>
+          <Typography id="display" variant="h4" value={currVal}>
             {currVal}
           </Typography>
         </div>

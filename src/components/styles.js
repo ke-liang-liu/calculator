@@ -28,6 +28,10 @@ const useStyles = makeStyles(theme => ({
     gridArea: 'bulletboard',
     textAlign: 'right',
     backgroundColor: theme.palette.grey[300],
+    padding: theme.spacing(0, 1),
+  },
+  equation: {
+    margin: theme.spacing(0.5, 0),
   },
   gridContainer: {
     display: 'grid',
@@ -47,9 +51,6 @@ const useStyles = makeStyles(theme => ({
   item: {
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
-  },
-  divider: {
-    margin: theme.spacing(2, 0),
   },
 }));
 
