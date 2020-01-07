@@ -48,6 +48,9 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
   },
+  divider: {
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 export default useStyles;

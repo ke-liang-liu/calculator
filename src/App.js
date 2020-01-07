@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core/';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import MyButton, { buttons } from './components/MyButton';
 import useStyles from './components/styles';
 
 function Calculator() {
   const classes = useStyles();
+
   const [lastButton, setLastButton] = useState('0');
   const [currVal, setCurrVal] = useState(() => {
-    const localData = localStorage.getItem('calculatorCurrValue');
-    if (isNaN(localData) || localData === 'Infinity') {
+    const localData = localStorage.getItem('calculatorCurrVal');
+    if (isNaN(localData) || localData === 'Infinity' || localData === null) {
       setLastButton('0');
       return '0';
     }
     return localData;
   });
+
+  const [equation, setEquation] = useState(() => {
+    const localData = localStorage.getItem('calculatorEquation');
+    return localData;
+  });
+
   useEffect(() => {
-    localStorage.setItem('calculatorCurrValue', currVal);
+    localStorage.setItem('calculatorCurrVal', currVal);
   }, [currVal]);
+  useEffect(() => {
+    localStorage.setItem('calculatorEquation', equation);
+  }, [equation]);
   const [prevVal, setPrevVal] = useState('0');
   const [currOperator, setCurrOperator] = useState('+');
   const [evaluated, setEvaluated] = useState(false);
@@ -24,22 +35,33 @@ function Calculator() {
   const [bgColor, setBgColor] = useState('white');
 
   const handleClick = (value) => {
+
     const evaluateResult = () => {
       const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
+      let equation;
+      if (currSign === '+' && prevVal === '0') {
+        equation = `${currOperator} ${currVal}`;
+      } else if (currSign === '+' && prevVal !== '0') {
+        equation = `${prevVal} ${currOperator} ${currVal}`;
+      } else {
+        equation = expression;
+      }
       const tens = 1000000000000;
       // eslint-disable-next-line
       const answer = Math.round(tens * eval(expression)) / tens;
       setCurrVal(answer.toString());
       setPrevVal(answer.toString());
+      setEquation(equation + ' = ' + answer.toString());
     }
 
     switch (value) {
       case 'AC':
-        setCurrVal('0');
+        setCurrVal('0');  //zero is 48, space is 32 or 160
         setPrevVal('0');
         setEvaluated(false);
         setCurrOperator('+');
         setCurrSign('+');
+        setEquation('0');
         break;
       case '0':
       case '1':
@@ -108,8 +130,12 @@ function Calculator() {
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
       <div className={classes.gridContainer}>
-        <div className={[classes.item, classes.bulletboard].join(' ')} id="display">
-          <Typography variant="h4" align='right' value={currVal}>
+        <div className={[classes.item, classes.bulletboard].join(' ')}>
+          <Typography variant='subtitle1'>
+            {equation}
+          </Typography>
+          <Divider className={classes.divider} />
+          <Typography id="display" variant="h4" align='right' value={currVal}>
             {currVal}
           </Typography>
         </div>
@@ -129,8 +155,7 @@ function Calculator() {
               } else {
                 setBgColor('white')
               }
-            }}
-          >
+            }}>
             Designed and Coded By Keliang Liu
           </Typography>
         </div>
