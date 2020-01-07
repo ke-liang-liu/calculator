@@ -1,56 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core/';
-
-const useStyles = makeStyles(theme => ({
-  zero: { gridArea: 'zero' },
-  one: { gridArea: 'one' },
-  two: { gridArea: 'two' },
-  three: { gridArea: 'three' },
-  four: { gridArea: 'four' },
-  five: { gridArea: 'five' },
-  six: { gridArea: 'six' },
-  seven: { gridArea: 'seven' },
-  eight: { gridArea: 'eight' },
-  nine: { gridArea: 'nine' },
-  add: { gridArea: 'add' },
-  subtract: { gridArea: 'subtract' },
-  multiply: { gridArea: 'multiply' },
-  divide: { gridArea: 'divide' },
-  clear: { gridArea: 'clear' },
-  decimal: { gridArea: 'decimal' },
-  equals: { gridArea: 'equals' },
-  developer: {
-    gridArea: 'developer',
-    margin: 'auto',
-    backgroundColor: 'white',
-    width: '100%'
-  },
-  bulletboard: {
-    gridArea: 'bulletboard',
-    textAlign: 'right',
-    backgroundColor: theme.palette.grey[300],
-  },
-  gridContainer: {
-    display: 'grid',
-    gridTemplateAreas: `
-      'bulletboard bulletboard bulletboard bulletboard'
-      'clear clear equals equals'
-      'seven eight nine add'
-      'four five six subtract'
-      'one two three multiply'
-      'zero zero decimal divide'
-      'developer developer developer developer'`,
-    gridGap: theme.spacing(1),
-    margin: 'auto',
-    paddingTop: theme.spacing(1),
-    width: 'fit-content',
-  },
-  item: {
-    color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
-  },
-}));
+import { Typography } from '@material-ui/core/';
+import MyButton, { buttons } from './components/MyButton';
+import useStyles from './components/styles';
 
 function Calculator() {
   const classes = useStyles();
@@ -189,36 +140,3 @@ function Calculator() {
 }
 
 export default Calculator;
-
-const MyButton = (props) => {
-  return (
-    <Button
-      size='large'
-      variant='contained'
-      id={props.id}
-      value={props.value}
-      onClick={() => { props.handleClick(props.value) }}
-      fullWidth>
-      {props.value}
-    </Button>
-  );
-}
-
-const buttons = [
-  { id: "zero", value: "0" },
-  { id: "one", value: "1" },
-  { id: "two", value: "2" },
-  { id: "three", value: "3" },
-  { id: "four", value: "4" },
-  { id: "five", value: "5" },
-  { id: "six", value: "6" },
-  { id: "seven", value: "7" },
-  { id: "eight", value: "8" },
-  { id: "nine", value: "9" },
-  { id: "add", value: "+" },
-  { id: "subtract", value: "-" },
-  { id: "multiply", value: "*" },
-  { id: "divide", value: "/" },
-  { id: "clear", value: "AC" },
-  { id: "decimal", value: "." },
-  { id: "equals", value: "=" }]
