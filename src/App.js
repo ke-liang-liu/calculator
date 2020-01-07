@@ -20,7 +20,12 @@ const useStyles = makeStyles(theme => ({
   clear: { gridArea: 'clear' },
   decimal: { gridArea: 'decimal' },
   equals: { gridArea: 'equals' },
-  developer: { gridArea: 'developer', margin: 'auto' },
+  developer: {
+    gridArea: 'developer',
+    margin: 'auto',
+    backgroundColor: 'white',
+    width: '100%'
+  },
   bulletboard: {
     gridArea: 'bulletboard',
     textAlign: 'right',
