@@ -34,4 +34,6 @@ export const buttons = [
   { id: "divide", value: "/" },
   { id: "clear", value: "AC" },
   { id: "decimal", value: "." },
-  { id: "equals", value: "=" }]
+  { id: "equals", value: "=" },
+  { id: "backspace", value: "<-" }
+]

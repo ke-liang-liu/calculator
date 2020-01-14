@@ -37,11 +37,11 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateAreas: `
       'bulletboard bulletboard bulletboard bulletboard'
-      'clear clear equals equals'
-      'seven eight nine add'
+      'clear clear backspace divide'
+      'seven eight nine multiply'
       'four five six subtract'
-      'one two three multiply'
-      'zero zero decimal divide'
+      'one two three add'
+      'zero zero decimal equals'
       'developer developer developer developer'`,
     gridGap: theme.spacing(1),
     margin: 'auto',

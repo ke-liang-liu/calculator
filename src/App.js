@@ -84,7 +84,7 @@ function Calculator() {
         if (currVal.length === 16 && /\d/.test(lastButton)) { return; }
         if (
           lastButton === 'AC'
-          || (lastButton === '0' && currVal === '0')
+          || (currVal === '0') // (lastButton === '0' && currVal === '0') 
           || ['+', '-', '*', '/'].includes(lastButton)
         ) {
           setCurrVal(value);
@@ -135,6 +135,23 @@ function Calculator() {
         setCurrSign('+');
         break;
       }
+      case '<-':
+        if (currVal === 'Infinity' || currVal === '-Infinity') {
+          setCurrVal('0');
+          return;
+        }
+        if (isNaN(currVal)) {
+          setCurrVal('0');
+          return;
+        }
+        if (currVal.length === 1) {
+          setCurrVal('0');
+          return;
+        } else {
+          const tmp = currVal.slice(0, currVal.length - 1);
+          setCurrVal(tmp);
+        }
+        break;
       default:
     }
     setLastButton(value);
@@ -161,7 +178,6 @@ function Calculator() {
           <Typography
             variant="body2"
             align='center'
-            value={currVal}
             onClick={() => {
               if (bgColor === 'white') {
                 setBgColor('black')
