@@ -112,6 +112,9 @@ function Calculator() {
         if (/\d/.test(lastButton)) {
           evaluateResult();
           setCurrOperator(value);
+        } else if (prevVal === 'initZero') {
+          setPrevVal(currVal);
+          setCurrOperator(value);
         } else if (value === '-' && ['+', '-', '*', '/'].includes(lastButton)) {
           setCurrSign('-');
         } else if (['+', '*', '/'].includes(value) && lastButton === '-') {
