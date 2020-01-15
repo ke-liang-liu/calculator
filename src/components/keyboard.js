@@ -1,5 +1,6 @@
 export default function keyboardFunc(e) {
   e.stopImmediatePropagation();
+  console.log(e.keyCode);
   switch (e.keyCode) {
     case 27:  // Esc
     case 65:  // A
@@ -50,6 +51,8 @@ export default function keyboardFunc(e) {
       document.getElementById('nine').click();
       break;
     case 13: // Enter
+      e.stopPropagation();
+      e.preventDefault();
       document.getElementById('equals').click();
       break;
     case 187:  // + or =
