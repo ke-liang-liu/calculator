@@ -42,7 +42,6 @@ export default function keyboardFunc(e) {
     case 103:
       document.getElementById('seven').click();
       break;
-    case 56:
     case 104:
       document.getElementById('eight').click();
       break;
@@ -50,19 +49,31 @@ export default function keyboardFunc(e) {
     case 105:
       document.getElementById('nine').click();
       break;
-    case 13:
+    case 13: // Enter
       document.getElementById('equals').click();
       break;
-    case 107:
-    case 187:
+    case 187:  // + or =
+      if (e.shiftKey) {
+        document.getElementById('add').click();
+      } else {
+        document.getElementById('equals').click();
+      }
+      break;
+    case 107: //NumPad add
       document.getElementById('add').click();
       break;
     case 109:
     case 189:
       document.getElementById('subtract').click();
       break;
-    // case 56:
-    case 106:
+    case 56:  // * or 8
+      if (e.shiftKey) {
+        document.getElementById('multiply').click();
+      } else {
+        document.getElementById('eight').click();
+      }
+      break;
+    case 106: // NumPad *
       document.getElementById('multiply').click();
       break;
     case 111:
