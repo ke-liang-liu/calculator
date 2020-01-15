@@ -1,5 +1,6 @@
 export default function keyboardFunc(e) {
   e.stopImmediatePropagation();
+  console.log(e.keyCode);
   switch (e.keyCode) {
     case 27:  // Esc
     case 65:  // A
