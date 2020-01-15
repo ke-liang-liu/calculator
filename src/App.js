@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MyButton, { buttons } from './components/MyButton';
+import HisButton from './components/HisButton';
 import useStyles from './components/styles';
 import keyboardFunc from './components/keyboard';
 
@@ -170,9 +171,10 @@ function Calculator() {
       <div className={classes.gridContainer}>
         <div className={[classes.item, classes.bulletboard].join(' ')}>
           <Typography className={classes.equation} variant='subtitle1'>
-            {equation}
+            {/* {equation} */}
+            <HisButton />
           </Typography>
-          <Divider className={classes.divider} />
+          {/* <Divider className={classes.divider} /> */}
           <Typography id="display" variant="h4" value={currVal}>
             {currVal}
           </Typography>

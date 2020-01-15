@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 1),
   },
   equation: {
-    margin: theme.spacing(0.5, 0),
+    margin: theme.spacing(1, 0),
+    marginBottom: 0,
   },
   gridContainer: {
     display: 'grid',
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     width: 'fit-content',
   },
   item: {
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary.dark,
     whiteSpace: 'nowrap',
   },
 }));
