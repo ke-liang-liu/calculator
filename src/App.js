@@ -38,7 +38,7 @@ function Calculator() {
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
-  
+
   document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', keyboardFunc);
   });
@@ -114,7 +114,10 @@ function Calculator() {
       case '+':
       case '*':
       case '/':
-        if (/\d/.test(lastButton)) {
+        if ('<-' === lastButton) {
+          setPrevVal(currVal);
+          setCurrOperator(value);
+        } else if (/\d/.test(lastButton)) {
           evaluateResult();
           setCurrOperator(value);
         } else if (prevVal === 'initZero') {
