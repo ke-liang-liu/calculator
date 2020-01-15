@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import MyButton, { buttons } from './components/MyButton';
 import useStyles from './components/styles';
+import keyboardFunc from './components/keyboard';
 
 function Calculator() {
   const classes = useStyles();
@@ -37,84 +38,9 @@ function Calculator() {
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
+  
   document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('keydown', e => {
-      e.stopImmediatePropagation();
-      switch (e.keyCode) {
-        case 27:  // Esc
-        case 65:  // A
-        case 67:  // C
-          document.getElementById('clear').click();
-          break;
-        case 110:
-        case 190:
-          document.getElementById('decimal').click();
-          break;
-        case 48:
-        case 96:
-          document.getElementById('zero').click();
-          break;
-        case 49:
-        case 97:
-          document.getElementById('one').click();
-          break;
-        case 50:
-        case 98:
-          document.getElementById('two').click();
-          break;
-        case 51:
-        case 99:
-          document.getElementById('three').click();
-          break;
-        case 52:
-        case 100:
-          document.getElementById('four').click();
-          break;
-        case 53:
-        case 101:
-          document.getElementById('five').click();
-          break;
-        case 54:
-        case 102:
-          document.getElementById('six').click();
-          break;
-        case 55:
-        case 103:
-          document.getElementById('seven').click();
-          break;
-        case 56:
-        case 104:
-          document.getElementById('eight').click();
-          break;
-        case 57:
-        case 105:
-          document.getElementById('nine').click();
-          break;
-        case 13:
-          document.getElementById('equals').click();
-          break;
-        case 107:
-        case 187:
-          document.getElementById('add').click();
-          break;
-        case 109:
-        case 189:
-          document.getElementById('subtract').click();
-          break;
-        // case 56:
-        case 106:
-          document.getElementById('multiply').click();
-          break;
-        case 111:
-        case 191:
-          document.getElementById('divide').click();
-          break;
-        case 8:
-          document.getElementById('backspace').click();
-          break;
-        default:
-      }
-    });
+    document.addEventListener('keydown', keyboardFunc);
   });
 
   const handleClick = (value) => {
