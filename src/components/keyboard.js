@@ -50,6 +50,8 @@ export default function keyboardFunc(e) {
       document.getElementById('nine').click();
       break;
     case 13: // Enter
+      e.stopPropagation();
+      e.preventDefault();
       document.getElementById('equals').click();
       break;
     case 187:  // + or =
