@@ -53,18 +53,20 @@ function Calculator() {
         return;
       }
       const expression = `${prevVal} ${currOperator} (${currSign}${currVal})`;
-      let equation;
+      let _equation;
       if (currSign === '+') {
-        equation = `${prevVal} ${currOperator} ${currVal}`;
+        _equation = `${prevVal} ${currOperator} ${currVal}`;
       } else {
-        equation = `${prevVal} ${currOperator} ${currSign}${currVal}`;
+        _equation = `${prevVal} ${currOperator} ${currSign}${currVal}`;
       }
       const tens = 100000000000;
       // eslint-disable-next-line
       const answer = Math.round(tens * eval(expression)) / tens;
       setCurrVal(answer.toString());
       setPrevVal(answer.toString());
-      setEquation(equation + ' = ' + answer.toString());
+      _equation += ' = ' + answer.toString();
+      setHistory([_equation, ...history]);
+      setEquation(_equation);
     }
     const doAC = () => {
       setPrevVal('initZero');
@@ -184,9 +186,9 @@ function Calculator() {
         <div className={[classes.item, classes.bulletboard].join(' ')}>
           <Typography className={classes.equation} variant='subtitle1'>
             <Button id='hisButton' className={classes.hisButton} variant="contained" onClick={handleClickOpen} fullWidth>
-              {equation}
+              {history.length > 0 ? history[0] : '0'}
             </Button>
-            <HistoryDialog className={classes.historyDialog} open={open} onClose={handleClose} historyArr={['1 + 1 = 2', '2 + 2 = 4', '3 + 3 = 677777777777777777777777']} />
+            <HistoryDialog className={classes.historyDialog} open={open} onClose={handleClose} historyArr={history} />
           </Typography>
           <Typography id="display" variant="h4" value={currVal}>
             {currVal}

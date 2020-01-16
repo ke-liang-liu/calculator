@@ -27,7 +27,10 @@ export default function HistoryDialog(props) {
   };
 
   return (
-    <Dialog onClose={handleClose} open={open} maxWidth='sm' scroll='paper'>
+    <Dialog onClose={handleClose} open={open} maxWidth='sm' scroll='body'>
+      <DialogActions><Button variant='contained' onClick={handleClose}>Cancel</Button>
+                     <Button variant='contained' onClick={handleClose}>Clear History</Button>
+      </DialogActions>
       <List>
         {historyArr.map((equation, index) => (
           <ListItem className={classes.listItem} button onClick={() => handleListItemClick(equation)} key={index} >
@@ -35,14 +38,6 @@ export default function HistoryDialog(props) {
           </ListItem>
         ))}
       </List>
-      <DialogActions>
-        <Button onClick={handleClose}>
-          Cancel
-          </Button>
-        <Button onClick={handleClose}>
-          Clear History
-          </Button>
-      </DialogActions>
     </Dialog>
   );
 }
