@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import MyButton, { buttons } from './components/MyButton';
-import HisButton from './components/HisButton';
+import HistoryDialog from './components/HistoryDialog';
 import useStyles from './components/styles';
 import keyboardFunc from './components/keyboard';
 
@@ -39,6 +39,8 @@ function Calculator() {
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
+  const [history, setHistory] = useState([]);
+  const [open, setOpen] = useState(false);
 
   document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', keyboardFunc);
@@ -166,15 +168,26 @@ function Calculator() {
     setLastButton(value);
   }
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = value => {
+    setOpen(false);
+    setEquation(value);
+    //TODO setCurrVal() 
+  };
+
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
       <div className={classes.gridContainer}>
         <div className={[classes.item, classes.bulletboard].join(' ')}>
           <Typography className={classes.equation} variant='subtitle1'>
-            {/* {equation} */}
-            <HisButton />
+            <Button id='hisButton' className={classes.hisButton} variant="contained" onClick={handleClickOpen} fullWidth>
+              {equation}
+            </Button>
+            <HistoryDialog className={classes.historyDialog} open={open} onClose={handleClose} historyArr={['1 + 1 = 2', '2 + 2 = 4', '3 + 3 = 677777777777777777777777']} />
           </Typography>
-          {/* <Divider className={classes.divider} /> */}
           <Typography id="display" variant="h4" value={currVal}>
             {currVal}
           </Typography>

@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'right',
     backgroundColor: theme.palette.grey[300],
     padding: theme.spacing(0, 1),
+    borderRadius: theme.shape.borderRadius,
   },
   equation: {
     margin: theme.spacing(1, 0),
@@ -53,6 +54,13 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary.dark,
     whiteSpace: 'nowrap',
   },
+  hisButton: {
+    justifyContent: 'flex-end',
+    padding: theme.spacing(1, 0.5),
+  },
+  historyDialog: {
+    width: 'fit-content',
+  }
 }));
 
 export default useStyles;
