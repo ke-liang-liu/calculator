@@ -18,6 +18,8 @@ const useStyles = makeStyles(theme => ({
   clear: { gridArea: 'clear' },
   decimal: { gridArea: 'decimal' },
   equals: { gridArea: 'equals' },
+  backspace: { gridArea: 'backspace' },
+  memory: { gridArea: 'memory' },
   developer: {
     gridArea: 'developer',
     margin: 'auto',
@@ -39,11 +41,11 @@ const useStyles = makeStyles(theme => ({
     display: 'grid',
     gridTemplateAreas: `
       'bulletboard bulletboard bulletboard bulletboard'
-      'clear clear backspace divide'
-      'seven eight nine multiply'
-      'four five six subtract'
-      'one two three add'
-      'zero zero decimal equals'
+      'clear memory memory backspace'
+      'seven eight nine divide'
+      'four five six multiply'
+      'one two three subtract'
+      'zero decimal equals add'
       'developer developer developer developer'`,
     gridGap: theme.spacing(1),
     margin: 'auto',
@@ -53,10 +55,6 @@ const useStyles = makeStyles(theme => ({
   item: {
     color: theme.palette.text.secondary.dark,
     whiteSpace: 'nowrap',
-  },
-  hisButton: {
-    justifyContent: 'flex-end',
-    padding: theme.spacing(1, 0.5),
   },
   historyDialog: {
     width: 'fit-content',

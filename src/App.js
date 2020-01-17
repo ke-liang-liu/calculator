@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import MyButton, { buttons } from './components/MyButton';
 import HistoryDialog from './components/HistoryDialog';
@@ -22,24 +23,30 @@ function Calculator() {
     return localData;
   });
 
-  const [equation, setEquation] = useState(() => {
-    const localData = localStorage.getItem('calculatorEquation');
-    if (localData === null || localData === 'null' || localData === 'Infinity') {
-      return '0';
-    }
-    return localData;
-  });
+  // const [equation, setEquation] = useState(() => {
+  //   const localData = localStorage.getItem('calculatorEquation');
+  //   if (localData === null || localData === 'null' || localData === 'Infinity') {
+  //     return '0';
+  //   }
+  //   return localData;
+  // });
 
   useEffect(() => {
     localStorage.setItem('calculatorCurrVal', currVal);
   }, [currVal]);
-  useEffect(() => {
-    localStorage.setItem('calculatorEquation', equation);
-  }, [equation]);
+  // useEffect(() => {
+  //   localStorage.setItem('calculatorEquation', equation);
+  // }, [equation]);
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState(() => {
+    const localData = localStorage.getItem('calculatorHistory');
+    return localData ? JSON.parse(localData) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem('calculatorHistory', JSON.stringify(history));
+  }, [history]);
   const [open, setOpen] = useState(false);
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -61,12 +68,12 @@ function Calculator() {
       }
       const tens = 100000000000;
       // eslint-disable-next-line
-      const answer = Math.round(tens * eval(expression)) / tens;
-      setCurrVal(answer.toString());
-      setPrevVal(answer.toString());
-      _equation += ' = ' + answer.toString();
+      let answer = Math.round(tens * eval(expression)) / tens;
+      answer = answer.toString();
+      setCurrVal(answer);
+      setPrevVal(answer);
+      _equation += ' = ' + answer;
       setHistory([_equation, ...history]);
-      setEquation(_equation);
     }
     const doAC = () => {
       setPrevVal('initZero');
@@ -78,7 +85,6 @@ function Calculator() {
     switch (value) {
       case 'AC':
         doAC();
-        setEquation('0');
         break;
       case '0':
       case '1':
@@ -174,10 +180,17 @@ function Calculator() {
     setOpen(true);
   };
 
-  const handleClose = value => {
+  const handleClearHistory = () => {
+    setHistory([]);
+    // setOpen(false);
+  }
+  const handleClose = equation => {
     setOpen(false);
-    setEquation(value);
-    //TODO setCurrVal() 
+    if (equation) {
+      setHistory([equation, ...history]);
+      const _currVal = Number(equation.split('=')[1]).toString();
+      setCurrVal(_currVal);
+    }
   };
 
   return (
@@ -185,11 +198,9 @@ function Calculator() {
       <div className={classes.gridContainer}>
         <div className={[classes.item, classes.bulletboard].join(' ')}>
           <Typography className={classes.equation} variant='subtitle1'>
-            <Button id='hisButton' className={classes.hisButton} variant="contained" onClick={handleClickOpen} fullWidth>
-              {history.length > 0 ? history[0] : '0'}
-            </Button>
-            <HistoryDialog className={classes.historyDialog} open={open} onClose={handleClose} historyArr={history} />
+            {history.length > 0 ? history[0] : '0'}
           </Typography>
+          <Divider className={classes.divider} />
           <Typography id="display" variant="h4" value={currVal}>
             {currVal}
           </Typography>
@@ -199,6 +210,21 @@ function Calculator() {
             <MyButton id={button.id} value={button.value} handleClick={handleClick} />
           </div>
         ))}
+
+        <div className={[classes.item, classes.memory].join(' ')} >
+          <Button id='hisButton' size='large' variant="contained" onClick={handleClickOpen} fullWidth>
+            MR
+          </Button>
+        </div>
+        <HistoryDialog className={classes.historyDialog}
+          open={open}
+          onClose={handleClose}
+          onClearHistory={handleClearHistory}
+          historyArr={history}
+        />
+
+
+
         <div className={[classes.item, classes.developer].join(' ')}>
           <Typography
             variant="body2"
