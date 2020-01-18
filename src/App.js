@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import BackspaceIcon from '@material-ui/icons/Backspace';
 import MyButton, { buttons } from './components/MyButton';
 import HistoryDialog from './components/HistoryDialog';
 import useStyles from './components/styles';
@@ -209,6 +210,11 @@ function Calculator() {
           </div>
         ))}
 
+        <div className={[classes.item, classes.backspace].join(' ')} >
+          <Button size='large' variant='contained' id='backspace' onClick={() => handleClick('<-')} fullWidth style={{ height: 42 }}>
+            <BackspaceIcon fontSize='small' />
+          </Button>
+        </div>
         <div className={[classes.item, classes.memory].join(' ')} >
           <Button id='hisButton' size='large' variant="contained" onClick={handleClickOpen} fullWidth>
             MR
