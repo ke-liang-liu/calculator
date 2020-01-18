@@ -27,14 +27,15 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   },
   bulletboard: {
-    color: theme.palette.primary.dark,
+    border: '1px solid',
+    borderColor: theme.palette.grey[500],
     gridArea: 'bulletboard',
     textAlign: 'right',
-    backgroundColor: theme.palette.grey[300],
     padding: theme.spacing(0, 1),
     borderRadius: theme.shape.borderRadius,
   },
   equation: {
+    color: theme.palette.grey[500],
     margin: theme.spacing(1, 0),
     marginBottom: 0,
   },
@@ -54,7 +55,8 @@ const useStyles = makeStyles(theme => ({
     width: 'fit-content',
   },
   item: {
-    color: theme.palette.text.secondary.dark,
+    // color: 'red',
+    // color: theme.palette.text.secondary.dark,
     // whiteSpace: 'nowrap',
   },
   historyDialog: {

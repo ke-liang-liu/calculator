@@ -30,7 +30,7 @@ export default function HistoryDialog(props) {
   return (
     <Dialog onClose={handleClose} open={open} maxWidth='xs' fullWidth scroll='paper'>
       <DialogActions style={{ justifyContent: 'center', marginTop: 8 }}>
-        <Button variant='contained' onClick={handleClose}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button>
+        <Button variant='contained' onClick={handleClose}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button>
         <Button variant='contained' onClick={onClearHistory}>Clear History</Button>
       </DialogActions>
       <DialogContent>
@@ -43,7 +43,7 @@ export default function HistoryDialog(props) {
             ))}
           </List>
         ) : (
-            <p style={{ textAlign: 'center' }}>History is empty.</p>
+            <p style={{ textAlign: 'center' }}>Your calculation history appears here so that you can reuse the results</p>
           )}
       </DialogContent>
     </Dialog>

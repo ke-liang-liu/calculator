@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import BackspaceIcon from '@material-ui/icons/Backspace';
+import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import MyButton, { buttons } from './components/MyButton';
 import HistoryDialog from './components/HistoryDialog';
 import useStyles from './components/styles';
@@ -115,14 +115,11 @@ function Calculator() {
       case '+':
       case '*':
       case '/':
-        if ('<-' === lastButton || 'MR' === lastButton) {
+        if ('<-' === lastButton || 'MR' === lastButton || prevVal === 'initZero') {
           setPrevVal(currVal);
           setCurrOperator(value);
         } else if (/\d/.test(lastButton)) {
           evaluateResult();
-          setCurrOperator(value);
-        } else if (prevVal === 'initZero') {
-          setPrevVal(currVal);
           setCurrOperator(value);
         } else if (value === '-' && ['+', '-', '*', '/'].includes(lastButton)) {
           setCurrSign('-');
@@ -199,7 +196,7 @@ function Calculator() {
           <Typography className={classes.equation} variant='subtitle1'>
             {history.length > 0 ? history[0] : '0'}
           </Typography>
-          <Divider className={classes.divider} />
+          <Divider />
           <Typography id="display" variant="h4" value={currVal}>
             {currVal}
           </Typography>
@@ -212,7 +209,7 @@ function Calculator() {
 
         <div className={[classes.item, classes.backspace].join(' ')} >
           <Button size='large' variant='contained' id='backspace' onClick={() => handleClick('<-')} fullWidth style={{ height: 42 }}>
-            <BackspaceIcon fontSize='small' />
+            <BackspaceOutlinedIcon fontSize='small' />
           </Button>
         </div>
         <div className={[classes.item, classes.memory].join(' ')} >
