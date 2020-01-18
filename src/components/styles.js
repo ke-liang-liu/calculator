@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
   bulletboard: {
     border: '1px solid',
     borderColor: theme.palette.grey[500],
+    backgroundColor: 'white',
     gridArea: 'bulletboard',
     textAlign: 'right',
     padding: theme.spacing(0, 1),
@@ -54,14 +55,10 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
     width: 'fit-content',
   },
-  item: {
-    // color: 'red',
-    // color: theme.palette.text.secondary.dark,
-    // whiteSpace: 'nowrap',
-  },
-  historyDialog: {
-    width: 'fit-content',
-  }
+  // item: {
+  //   color: theme.palette.text.secondary.dark,
+  //   whiteSpace: 'nowrap',
+  // },
 }));
 
 export default useStyles;

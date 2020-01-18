@@ -163,6 +163,14 @@ function Calculator() {
     setLastButton(value);
   }
 
+  const toggleBgColor = () => {
+    if (bgColor === 'white') {
+      setBgColor('black')
+    } else {
+      setBgColor('white')
+    }
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
     setLastButton('MR');
@@ -197,7 +205,7 @@ function Calculator() {
             {history.length > 0 ? history[0] : '0'}
           </Typography>
           <Divider />
-          <Typography id="display" variant="h4" value={currVal}>
+          <Typography id="display" variant="h4" value={currVal} >
             {currVal}
           </Typography>
         </div>
@@ -217,7 +225,7 @@ function Calculator() {
             MR
           </Button>
         </div>
-        <HistoryDialog className={classes.historyDialog}
+        <HistoryDialog
           open={open}
           onClose={handleClose}
           onClearHistory={handleClearHistory}
@@ -227,13 +235,7 @@ function Calculator() {
           <Typography
             variant="body2"
             align='center'
-            onClick={() => {
-              if (bgColor === 'white') {
-                setBgColor('black')
-              } else {
-                setBgColor('white')
-              }
-            }}>
+            onClick={toggleBgColor}>
             Designed and Coded By Keliang Liu
           </Typography>
         </div>
