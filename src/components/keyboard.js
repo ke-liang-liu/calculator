@@ -1,14 +1,10 @@
 export default function keyboardFunc(e) {
   e.stopImmediatePropagation();
   switch (e.keyCode) {
-    case 72: // H
     case 77: // M
-    case 82: // R
       document.getElementById('hisButton').click();
       break;
-    case 27:  // Esc
     case 65:  // A
-    case 67:  // C
       document.getElementById('clear').click();
       break;
     case 110:

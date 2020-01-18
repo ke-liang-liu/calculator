@@ -100,7 +100,7 @@ function Calculator() {
         if (currVal.length === 16 && /\d/.test(lastButton)) { return; }
         if (
           lastButton === 'AC'
-          || (currVal === '0') // (lastButton === '0' && currVal === '0') 
+          || (currVal === '0' && lastButton !== '=') // fix a bug when result is zero
           || ['+', '-', '*', '/'].includes(lastButton)
         ) {
           setCurrVal(value);
