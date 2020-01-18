@@ -8,6 +8,7 @@ import useStyles from './components/styles';
 import keyboardFunc from './components/keyboard';
 
 function Calculator() {
+  const HISTORY_LEN = 50;
   const classes = useStyles();
   const [lastButton, setLastButton] = useState('0');
   const [evaluated, setEvaluated] = useState(false);
@@ -22,21 +23,9 @@ function Calculator() {
     setLastButton('=');
     return localData;
   });
-
-  // const [equation, setEquation] = useState(() => {
-  //   const localData = localStorage.getItem('calculatorEquation');
-  //   if (localData === null || localData === 'null' || localData === 'Infinity') {
-  //     return '0';
-  //   }
-  //   return localData;
-  // });
-
   useEffect(() => {
     localStorage.setItem('calculatorCurrVal', currVal);
   }, [currVal]);
-  // useEffect(() => {
-  //   localStorage.setItem('calculatorEquation', equation);
-  // }, [equation]);
   const [currOperator, setCurrOperator] = useState('+');
   const [currSign, setCurrSign] = useState('+');
   const [bgColor, setBgColor] = useState('white');
@@ -52,7 +41,13 @@ function Calculator() {
   document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', keyboardFunc);
   });
-
+  const doAC = () => {
+    setPrevVal('initZero');
+    setCurrVal('0');
+    setEvaluated(false);
+    setCurrOperator('+');
+    setCurrSign('+');
+  }
   const handleClick = (value) => {
     const evaluateResult = () => {
       if (prevVal === 'initZero') {
@@ -73,15 +68,9 @@ function Calculator() {
       setCurrVal(answer);
       setPrevVal(answer);
       _equation += ' = ' + answer;
-      setHistory([_equation, ...history]);
+      saveHistory(_equation);
     }
-    const doAC = () => {
-      setPrevVal('initZero');
-      setCurrVal('0');
-      setEvaluated(false);
-      setCurrOperator('+');
-      setCurrSign('+');
-    }
+
     switch (value) {
       case 'AC':
         doAC();
@@ -97,7 +86,7 @@ function Calculator() {
       case '8':
       case '9': {
         setEvaluated(false);
-        if (currVal.length === 16 && /\d/.test(lastButton)) { return; }
+        if (currVal.length === 15 && /\d/.test(lastButton)) { return; }
         if (
           lastButton === 'AC'
           || (currVal === '0' && lastButton !== '=') // fix a bug when result is zero
@@ -125,7 +114,7 @@ function Calculator() {
       case '+':
       case '*':
       case '/':
-        if ('<-' === lastButton) {
+        if ('<-' === lastButton || 'MR' === lastButton) {
           setPrevVal(currVal);
           setCurrOperator(value);
         } else if (/\d/.test(lastButton)) {
@@ -178,21 +167,30 @@ function Calculator() {
 
   const handleClickOpen = () => {
     setOpen(true);
+    setLastButton('MR');
   };
 
   const handleClearHistory = () => {
     setHistory([]);
-    // setOpen(false);
+    setOpen(false);
+    doAC();
   }
   const handleClose = equation => {
     setOpen(false);
-    if (equation) {
-      setHistory([equation, ...history]);
-      const _currVal = Number(equation.split('=')[1]).toString();
-      setCurrVal(_currVal);
-    }
+    if (!equation) { return; }
+    saveHistory(equation);
+    const _currVal = equation.split('=')[1].trim();
+    setCurrVal(_currVal);
   };
-
+  const saveHistory = (equation) => {
+    if (history.length >= HISTORY_LEN) {
+      let tmpArr = [equation, ...history];
+      tmpArr.pop();
+      setHistory(tmpArr);
+    } else {
+      setHistory([equation, ...history]);
+    }
+  }
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
       <div className={classes.gridContainer}>
@@ -220,11 +218,8 @@ function Calculator() {
           open={open}
           onClose={handleClose}
           onClearHistory={handleClearHistory}
-          historyArr={history}
+          history={history}
         />
-
-
-
         <div className={[classes.item, classes.developer].join(' ')}>
           <Typography
             variant="body2"

@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%'
   },
   bulletboard: {
+    color: theme.palette.primary.dark,
     gridArea: 'bulletboard',
     textAlign: 'right',
     backgroundColor: theme.palette.grey[300],
@@ -54,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
   item: {
     color: theme.palette.text.secondary.dark,
-    whiteSpace: 'nowrap',
+    // whiteSpace: 'nowrap',
   },
   historyDialog: {
     width: 'fit-content',

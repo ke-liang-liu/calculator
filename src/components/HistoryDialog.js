@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 
 const useStyles = makeStyles({
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
 
 export default function HistoryDialog(props) {
   const classes = useStyles();
-  const { onClose, historyArr, open, onClearHistory } = props;
+  const { onClose, history, open, onClearHistory } = props;
 
   const handleClose = () => {
     onClose();
@@ -27,18 +28,24 @@ export default function HistoryDialog(props) {
   };
 
   return (
-    <Dialog onClose={handleClose} open={open} maxWidth='sm' scroll='body'>
-      <DialogActions>
-        <Button variant='contained' onClick={handleClose}>Cancel</Button>
+    <Dialog onClose={handleClose} open={open} maxWidth='xs' fullWidth scroll='paper'>
+      <DialogActions style={{ justifyContent: 'center', marginTop: 8 }}>
+        <Button variant='contained' onClick={handleClose}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cancel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Button>
         <Button variant='contained' onClick={onClearHistory}>Clear History</Button>
       </DialogActions>
-      <List>
-        {historyArr.map((equation, index) => (
-          <ListItem divider className={classes.listItem} button onClick={() => handleListItemClick(equation)} key={index} >
-            <ListItemText primary={equation} />
-          </ListItem>
-        ))}
-      </List>
+      <DialogContent>
+        {history.length ? (
+          <List>
+            {history.map((equation, index) => (
+              <ListItem divider className={classes.listItem} button onClick={() => handleListItemClick(equation)} key={index} >
+                <ListItemText primary={equation} />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+            <p style={{ textAlign: 'center' }}>History is empty.</p>
+          )}
+      </DialogContent>
     </Dialog>
   );
 }
