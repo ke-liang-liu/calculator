@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import HistoryIcon from '@material-ui/icons/History';
 import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 import MyButton, { buttons } from './components/MyButton';
 import HistoryDialog from './components/HistoryDialog';
@@ -177,8 +178,8 @@ function Calculator() {
   };
 
   const handleClearHistory = () => {
-    setHistory([]);
     setOpen(false);
+    setHistory([]);
     doAC();
   }
   const handleClose = equation => {
@@ -221,8 +222,8 @@ function Calculator() {
           </Button>
         </div>
         <div className={[classes.item, classes.memory].join(' ')} >
-          <Button id='hisButton' size='large' variant="contained" onClick={handleClickOpen} fullWidth>
-            MR
+          <Button id='hisButton' size='large' variant="contained" onClick={handleClickOpen} fullWidth style={{ height: 42 }}>
+            <HistoryIcon />
           </Button>
         </div>
         <HistoryDialog

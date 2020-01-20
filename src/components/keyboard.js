@@ -1,11 +1,15 @@
 export default function keyboardFunc(e) {
   e.stopImmediatePropagation();
   switch (e.keyCode) {
-    case 77: // M
-      document.getElementById('hisButton').click();
+    case 72: // H
+      if (!e.ctrlKey) {
+        document.getElementById('hisButton').click();
+      }
       break;
     case 65:  // A
-      document.getElementById('clear').click();
+      if (!e.ctrlKey) {
+        document.getElementById('clear').click();
+      }
       break;
     case 110:
     case 190:
