@@ -206,8 +206,8 @@ function Calculator() {
             {history.length > 0 ? history[0] : '0'}
           </Typography>
           <Divider />
-          <Typography id="display" variant="h4" value={currVal} >
-            {currVal}
+          <Typography variant="h4">
+            <span id="display">{currVal}</span>
           </Typography>
         </div>
         {buttons.map(button => (
