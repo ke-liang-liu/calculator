@@ -10,7 +10,7 @@ import useStyles from './components/styles';
 import keyboardFunc from './components/keyboard';
 
 function Calculator() {
-  const HISTORY_LEN = 50;
+  const HISTORY_LEN = 99;
   const classes = useStyles();
   const [lastButton, setLastButton] = useState('0');
   const [evaluated, setEvaluated] = useState(false);
@@ -201,7 +201,7 @@ function Calculator() {
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: `${bgColor}` }}>
       <div className={classes.gridContainer}>
-        <div className={[classes.item, classes.bulletboard].join(' ')}>
+        <div className={[classes.item, classes.bulletboard].join(' ')} onClick={toggleBgColor}>
           <Typography className={classes.equation} variant='subtitle1'>
             {history.length > 0 ? history[0] : '0'}
           </Typography>
@@ -233,12 +233,13 @@ function Calculator() {
           history={history}
         />
         <div className={[classes.item, classes.developer].join(' ')}>
-          <Typography
-            variant="body2"
-            align='center'
-            onClick={toggleBgColor}>
-            Designed and Coded By Keliang Liu
-          </Typography>
+          <a href="mailto:iamkeliangliu@gmail.com" target='_blank' rel="noopener noreferrer">
+            <Typography
+              variant="body2"
+              align='center'>
+              Designed and Coded By Keliang Liu
+            </Typography>
+          </a>
         </div>
       </div>
     </div>

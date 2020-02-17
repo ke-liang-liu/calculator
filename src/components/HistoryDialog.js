@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -24,8 +24,8 @@ export default function HistoryDialog(props) {
   return (
     <Dialog onClose={handleClose} open={open} maxWidth='xs' fullWidth scroll='paper'>
       <DialogActions style={{ justifyContent: 'space-around', marginTop: 8 }}>
-        <Button startIcon={<CancelOutlinedIcon />} onClick={handleClose}>&nbsp;Cancel&nbsp;</Button>
-        <Button startIcon={<DeleteOutlineIcon />} onClick={onClearHistory}>Clear History</Button>
+        <Button startIcon={<ArrowBackIcon />} onClick={handleClose}>&nbsp;&nbsp;</Button>
+        <Button startIcon={<DeleteOutlineIcon />} endIcon={history.length ? history.length : ''} onClick={onClearHistory}>Clear History</Button>
       </DialogActions>
       <DialogContent>
         {history.length ? (
