@@ -8,10 +8,28 @@ import MyButton, { buttons } from './components/MyButton';
 import HistoryDialog from './components/HistoryDialog';
 import useStyles from './components/styles';
 import keyboardFunc from './components/keyboard';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 function Calculator() {
   const HISTORY_LEN = 99;
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenuClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const sendAnEmail = () => {
+    window.open('mailto:iamkeliangliu@gmail.com');
+    setAnchorEl(null);
+  };
+
   const [lastButton, setLastButton] = useState('0');
   const [evaluated, setEvaluated] = useState(false);
   const [prevVal, setPrevVal] = useState('initZero');
@@ -233,13 +251,18 @@ function Calculator() {
           history={history}
         />
         <div className={[classes.item, classes.developer].join(' ')}>
-          <a href="mailto:iamkeliangliu@gmail.com" target='_blank' rel="noopener noreferrer">
-            <Typography
-              variant="body2"
-              align='center'>
-              Designed and Coded By Keliang Liu
-            </Typography>
-          </a>
+          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+            <MoreVertIcon />
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={sendAnEmail}>Send an Email to Keliang Liu</MenuItem>
+          </Menu>
         </div>
       </div>
     </div>

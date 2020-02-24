@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
       'four five six multiply'
       'one two three subtract'
       'zero decimal equals add'
-      'developer developer developer developer'`,
+      'developer . . .'`,
     gridGap: theme.spacing(1),
     margin: 'auto',
     paddingTop: theme.spacing(1),
