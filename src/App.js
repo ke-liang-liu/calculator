@@ -26,7 +26,7 @@ function Calculator() {
   };
 
   const sendAnEmail = () => {
-    window.open('mailto:iamkeliangliu@gmail.com');
+    window.open('mailto:keliangliu1@gmail.com');
     setAnchorEl(null);
   };
 
@@ -261,7 +261,7 @@ function Calculator() {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={sendAnEmail}>Send an Email to Keliang Liu</MenuItem>
+            <MenuItem onClick={sendAnEmail}>Send an email to the developer</MenuItem>
           </Menu>
         </div>
       </div>
