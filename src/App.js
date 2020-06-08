@@ -251,7 +251,7 @@ function Calculator() {
           history={history}
         />
         <div className={[classes.item, classes.developer].join(' ')}>
-          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+          <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick} style={{visibility: "hidden"}}>
             <MoreVertIcon />
           </Button>
           <Menu
